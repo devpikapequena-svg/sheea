@@ -80,7 +80,7 @@ export default function RootLayout({
         <title>Roupas Femininas, Loja de moda</title>
         <meta
           name="description"
-          content="O site oficial para comprar diamantes no Free Fire. Vários métodos de pagamento estão disponíveis para os jogadores do Brasil."
+          content="Moda feminina | Roupas, Sapatos e Acessórios | SHEIN Brasil"
         />
         <meta name="robots" content="index, follow" />
       </head>
