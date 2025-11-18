@@ -10,7 +10,7 @@ export default function PixPage() {
   const amount = searchParams.get("amount") || "R$ 0,00";
   const code = searchParams.get("code") || "";
   const qr = searchParams.get("qr") || "";
-  const id = searchParams.get("id") || "";
+  const id = searchParams.get("id") || ""; // <- externalId
 
   const [copied, setCopied] = useState(false);
 
@@ -20,10 +20,7 @@ export default function PixPage() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const diff = Math.max(
-        0,
-        Math.floor((expiresAt - Date.now()) / 1000)
-      );
+      const diff = Math.max(0, Math.floor((expiresAt - Date.now()) / 1000));
       setRemaining(diff);
       if (diff <= 0) clearInterval(interval);
     }, 1000);
@@ -64,6 +61,75 @@ export default function PixPage() {
       : `data:image/png;base64,${qr}`
     : "";
 
+  // ====== STATUS DO PAGAMENTO (API /api/create-payment GET) ======
+  const [paymentStatus, setPaymentStatus] = useState<string>("PENDING");
+  const [statusError, setStatusError] = useState<string>("");
+  const [checkingStatus, setCheckingStatus] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!id) return; // sem externalId, não tem o que checar
+
+    let interval: NodeJS.Timeout;
+
+    const checkPayment = async () => {
+      try {
+        setCheckingStatus(true);
+        setStatusError("");
+
+        const res = await fetch(
+          `/api/create-payment?externalId=${encodeURIComponent(id)}`
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          console.error("Erro ao consultar status do pagamento:", data);
+          setStatusError(data.error || "Erro ao consultar status do pagamento.");
+          return;
+        }
+
+        const status = String(data.status || "").toUpperCase();
+        setPaymentStatus(status);
+
+        // quando a API da BuckPay te devolver PAID / APPROVED / algo do tipo
+        if (status === "PAID" || status === "APPROVED") {
+          // para de checar
+          clearInterval(interval);
+
+          // redireciona para página de sucesso (ajusta a rota se quiser outra)
+          router.push(
+            `/checkout/sucesso?amount=${encodeURIComponent(
+              amount
+            )}&id=${encodeURIComponent(id)}`
+          );
+        }
+      } catch (err: any) {
+        console.error("Erro ao consultar status do pagamento:", err);
+        setStatusError(err.message || "Erro ao consultar status do pagamento.");
+      } finally {
+        setCheckingStatus(false);
+      }
+    };
+
+    // checa uma vez logo que abrir
+    checkPayment();
+    // e depois a cada 7 segundos
+    interval = setInterval(checkPayment, 7000);
+
+    return () => clearInterval(interval);
+  }, [id, router, amount]);
+
+  // texto bonitinho pro status
+  function getStatusLabel() {
+    if (paymentStatus === "PAID" || paymentStatus === "APPROVED")
+      return "Pagamento aprovado";
+    if (paymentStatus === "PENDING" || paymentStatus === "WAITING_PAYMENT")
+      return "Aguardando pagamento";
+    if (paymentStatus === "EXPIRED") return "Pagamento expirado";
+    if (paymentStatus === "CANCELLED") return "Pagamento cancelado";
+    return "Status desconhecido";
+  }
+
   return (
     <main className="min-h-screen bg-[#f5f5f5]">
       {/* TOPO */}
@@ -103,6 +169,22 @@ export default function PixPage() {
               <div>
                 <p className="text-[#777]">Total</p>
                 <p className="mt-1 text-[22px] font-semibold">{amount}</p>
+
+                {/* Status do pagamento */}
+                <p className="mt-3 text-[11px] text-[#555]">
+                  Status do pagamento:{" "}
+                  <span className="font-semibold">{getStatusLabel()}</span>
+                  {checkingStatus && (
+                    <span className="ml-1 text-[10px] text-[#999]">
+                      (checando...)
+                    </span>
+                  )}
+                </p>
+                {statusError && (
+                  <p className="mt-1 text-[11px] text-[#b91c1c]">
+                    {statusError}
+                  </p>
+                )}
               </div>
 
               <div className="text-right">
