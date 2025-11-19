@@ -1,3 +1,5 @@
+"use client";
+
 import Header from "@/components/Header";
 import Banner from "@/components/Banner";
 import ParaVoceSection from "@/components/ParaVoceSection";
@@ -8,9 +10,7 @@ export default function HomePage() {
     <main className="min-h-screen bg-white">
       <Header />
       <Banner />
-      {/* NOVA SEÇÃO IGUAL A SHEIN */}
       <ParaVoceSection />
-
       <Footer />
     </main>
   );

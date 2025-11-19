@@ -42,7 +42,7 @@ const topTendencias: Produto[] = [
   {
     id: 1,
     nome: "Conjunto de linho bege",
-    preco: "R$ 109,16",
+    preco: "R$ 39,16",
     tag: "#Print Gráfico",
     imagem:
       "https://img.ltwebstatic.com/v4/j/pi/2025/09/04/62/1756949615cfac30641a61e2c69b1976b976a8d451_thumbnail_405x552.jpg",
@@ -50,7 +50,7 @@ const topTendencias: Produto[] = [
   {
     id: 2,
     nome: "Vestido floral longo",
-    preco: "R$ 109,96",
+    preco: "R$ 34,60",
     tag: "#ElegantEyelet",
     imagem:
       "https://img.ltwebstatic.com/v4/j/pi/2025/05/12/03/17470377042fabd24061e6aadd83f6f21b3531ded3_thumbnail_405x552.jpg",
@@ -58,7 +58,7 @@ const topTendencias: Produto[] = [
   {
     id: 3,
     nome: "Conjunto tricô verão",
-    preco: "R$ 109,90",
+    preco: "R$ 34,60",
     tag: "#Vibração de férias",
     imagem:
       "https://img.ltwebstatic.com/v4/j/spmp/2025/06/25/d5/17508210960126f3cfe43196514d46c3b6c470980c_thumbnail_405x552.jpg",
@@ -95,7 +95,19 @@ function CardProdutoBanner({ produto }: { produto: Produto }) {
 }
 export default function Banner() {
   return (
-<section className="max-w-7xl mx-auto px-4 pt-[140px] pb-10">
+    <section className="max-w-7xl mx-auto px-4 pt-[140px] pb-10">
+
+      {/* 🔥 Banner de Natal acima dos produtos */}
+      <div className="w-full flex justify-center mb-10">
+        <Image
+          src="https://img.ltwebstatic.com/v4/g/ccc/2025/11/17/82/1763364359300659bd70b82abbe67efb3e07df24aa.webp"
+          alt="Banner de Natal"
+          width={1200}
+          height={350}
+          className="rounded-md w-full max-w-6xl"
+        />
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
 
         {/* Súper Ofertas */}
@@ -105,7 +117,7 @@ export default function Banner() {
             alt="Súper Ofertas"
             width={200}
             height={200}
-            className="mb-4 w-[150px] h-auto"   // 🔥 tamanho realmente menor
+            className="mb-4 w-[150px] h-auto"
           />
 
           <div className="grid grid-cols-3 gap-5">
@@ -122,7 +134,7 @@ export default function Banner() {
             alt="Top tendências"
             width={200}
             height={200}
-            className="mb-4 w-[150px] h-auto"   // 🔥 mesmo tamanho
+            className="mb-4 w-[150px] h-auto"
           />
 
           <div className="grid grid-cols-3 gap-5">
