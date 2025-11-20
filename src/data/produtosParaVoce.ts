@@ -841,6 +841,54 @@ export const produtosParaVoce = [
     imagem:
       "//img.ltwebstatic.com/images3_spmp/2023/10/21/db/1697818919686cad0d4bcd373ee0770407f10c8ddc_thumbnail_900x.webp",
   },
+         {
+    id: 106,
+    nome: "SHEIN EZwear Vestido Casual Curto Versátil com Abertura Lateral em Cor Sólida, Sem Mangas",
+    preco: "R$52,51",
+    desconto: "80%",
+    imagem:
+      "//img.ltwebstatic.com/images3_pi/2024/10/28/80/1730096892062039962871cd48aa16aa0c83bb02c1_thumbnail_900x.webp",
+  },
+                     {
+    id: 107,
+    nome: "Conjunto Fitness Preto",
+    preco: "R$34,84",
+    desconto: "80%",
+    imagem:
+      "https://img.ltwebstatic.com/images3_spmp/2023/12/06/97/1701863048fce2d54954e350b0925cfee62cc97c65_thumbnail_405x552.jpg",
+  },
+              {
+    id: 108,
+    nome: "Calça Reta Preta",
+    preco: "R$37,59",
+    desconto: "80%",
+    imagem:
+      "https://img.ltwebstatic.com/v4/j/spmp/2025/04/30/85/17460255260aa7de3b21eded2e0e5e4e38a38573bc_thumbnail_405x552.jpg",
+  },
+    {
+    id: 109,
+    nome: "Conjunto de linho bege",
+    preco: "R$39,16",
+    desconto: "80%",
+    imagem:
+      "https://img.ltwebstatic.com/v4/j/pi/2025/09/04/62/1756949615cfac30641a61e2c69b1976b976a8d451_thumbnail_405x552.jpg",
+  },
+      {
+    id: 110,
+    nome: "Vestido floral longo",
+    preco: "R$34,60",
+    desconto: "80%",
+    imagem:
+      "https://img.ltwebstatic.com/v4/j/pi/2025/05/12/03/17470377042fabd24061e6aadd83f6f21b3531ded3_thumbnail_405x552.jpg",
+  },
+        {
+    id: 111,
+    nome: "Conjunto tricô verão",
+    preco: "R$34,60",
+    desconto: "80%",
+    imagem:
+      "https://img.ltwebstatic.com/v4/j/spmp/2025/06/25/d5/17508210960126f3cfe43196514d46c3b6c470980c_thumbnail_405x552.jpg",
+  },
 ];
 
 export type ProdutoParaVoce = (typeof produtosParaVoce)[number];

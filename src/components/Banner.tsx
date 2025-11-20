@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 type Produto = {
   id: number;
@@ -13,15 +14,15 @@ type Produto = {
 
 const superOfertas: Produto[] = [
   {
-    id: 1,
-    nome: "Esponja Ruby Rose Stay Fix",
-    preco: "R$ 9,00",
+    id: 106,
+    nome: "Vestido Casual Curto Versátil",
+    preco: "R$ 52,51",
     label: "Exclusivo",
     imagem:
-      "https://img.ltwebstatic.com/images3_spmp/2024/07/16/d7/1721069429b077173257742573e9744bc5460d22ad_thumbnail_405x552.jpg",
+      "//img.ltwebstatic.com/images3_pi/2024/10/28/80/1730096892062039962871cd48aa16aa0c83bb02c1_thumbnail_900x.webp",
   },
   {
-    id: 2,
+    id: 107,
     nome: "Conjunto Fitness Preto",
     preco: "R$ 34,84",
     label: "83% OFF",
@@ -29,7 +30,7 @@ const superOfertas: Produto[] = [
       "https://img.ltwebstatic.com/images3_spmp/2023/12/06/97/1701863048fce2d54954e350b0925cfee62cc97c65_thumbnail_405x552.jpg",
   },
   {
-    id: 3,
+    id: 108,
     nome: "Calça Reta Preta",
     preco: "R$ 37,59",
     label: "62% OFF",
@@ -40,7 +41,7 @@ const superOfertas: Produto[] = [
 
 const topTendencias: Produto[] = [
   {
-    id: 1,
+    id: 109,
     nome: "Conjunto de linho bege",
     preco: "R$ 39,16",
     tag: "#Print Gráfico",
@@ -48,7 +49,7 @@ const topTendencias: Produto[] = [
       "https://img.ltwebstatic.com/v4/j/pi/2025/09/04/62/1756949615cfac30641a61e2c69b1976b976a8d451_thumbnail_405x552.jpg",
   },
   {
-    id: 2,
+    id: 110,
     nome: "Vestido floral longo",
     preco: "R$ 34,60",
     tag: "#ElegantEyelet",
@@ -56,7 +57,7 @@ const topTendencias: Produto[] = [
       "https://img.ltwebstatic.com/v4/j/pi/2025/05/12/03/17470377042fabd24061e6aadd83f6f21b3531ded3_thumbnail_405x552.jpg",
   },
   {
-    id: 3,
+    id: 111,
     nome: "Conjunto tricô verão",
     preco: "R$ 34,60",
     tag: "#Vibração de férias",
@@ -65,38 +66,41 @@ const topTendencias: Produto[] = [
   },
 ];
 
+// 🔗 AGORA O CARD JÁ NAVEGA PRA /produto/{id}
 function CardProdutoBanner({ produto }: { produto: Produto }) {
   return (
-    <div className="bg-white shadow-sm hover:shadow-md transition-all rounded-sm overflow-hidden cursor-pointer">
-      <div className="relative w-full pb-[150%]">
-        <Image
-          src={produto.imagem}
-          alt={produto.nome}
-          fill
-          className="object-cover"
-        />
+    <Link href={`/produto/${produto.id}`} className="block">
+      <div className="bg-white shadow-sm hover:shadow-md transition-all rounded-sm overflow-hidden cursor-pointer">
+        <div className="relative w-full pb-[150%]">
+          <Image
+            src={produto.imagem}
+            alt={produto.nome}
+            fill
+            className="object-cover"
+          />
+        </div>
+
+        <div className="px-3 pb-3 pt-2 text-[18px]">
+          <p className="text-[#ff4e4e] font-semibold leading-tight">
+            {produto.preco}
+          </p>
+
+          {produto.label && (
+            <p className="text-[15px] text-[#ff4e4e]">{produto.label}</p>
+          )}
+
+          {produto.tag && (
+            <p className="text-[15px] text-[#6366f1] mt-1">{produto.tag}</p>
+          )}
+        </div>
       </div>
-
-      <div className="px-3 pb-3 pt-2 text-[18px]">
-        <p className="text-[#ff4e4e] font-semibold leading-tight">
-          {produto.preco}
-        </p>
-
-        {produto.label && (
-          <p className="text-[15px] text-[#ff4e4e]">{produto.label}</p>
-        )}
-
-        {produto.tag && (
-          <p className="text-[15px] text-[#6366f1] mt-1">{produto.tag}</p>
-        )}
-      </div>
-    </div>
+    </Link>
   );
 }
+
 export default function Banner() {
   return (
     <section className="max-w-7xl mx-auto px-4 pt-[140px] pb-10">
-
       {/* 🔥 Banner de Natal acima dos produtos */}
       <div className="w-full flex justify-center mb-10">
         <Image
@@ -109,7 +113,6 @@ export default function Banner() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-
         {/* Súper Ofertas */}
         <div>
           <Image
@@ -143,7 +146,6 @@ export default function Banner() {
             ))}
           </div>
         </div>
-
       </div>
     </section>
   );
